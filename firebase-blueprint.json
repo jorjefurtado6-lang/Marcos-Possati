@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "Portfolio": {
+      "title": "Portfolio",
+      "description": "A portfolio item",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string" }
+      },
+      "required": ["title", "category", "description", "image"]
+    },
+    "Package": {
+      "title": "Package",
+      "description": "A pricing package",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "words": { "type": "string" },
+        "popular": { "type": "boolean" },
+        "type": { "type": "string" }
+      },
+      "required": ["name", "description", "words", "type"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "A client testimonial",
+      "type": "object",
+      "properties": {
+        "quote": { "type": "string" },
+        "author": { "type": "string" },
+        "role": { "type": "string" }
+      },
+      "required": ["quote", "author", "role"]
+    }
+  },
+  "firestore": {
+    "portfolio/{portfolioId}": {
+      "schema": { "$ref": "#/entities/Portfolio" },
+      "description": "Portfolio items"
+    },
+    "packages/{packageId}": {
+      "schema": { "$ref": "#/entities/Package" },
+      "description": "Pricing packages"
+    },
+    "testimonials/{testimonialId}": {
+      "schema": { "$ref": "#/entities/Testimonial" },
+      "description": "Client testimonials"
+    }
+  }
+}
