@@ -118,7 +118,9 @@ export default function ProjectPage() {
               <ArrowLeft size={16} /> Voltar ao Início
             </Link>
             <a
-              href="/#contato"
+              href="https://wa.me/5511978711905"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-2 bg-brand-gold text-brand-navy font-sans font-bold uppercase text-[10px] tracking-widest hover:brightness-110 transition-all duration-300 hidden sm:block"
             >
               Solicitar Orçamento
@@ -163,7 +165,7 @@ export default function ProjectPage() {
                <Link to="/" className="text-white/50 hover:text-white transition-colors text-sm uppercase tracking-widest">
                  Ver Outros Trabalhos
                </Link>
-               <a href="/#contato" className="px-8 py-3 bg-brand-gold text-brand-navy font-sans font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-colors shadow-lg">
+               <a href="https://wa.me/5511978711905" target="_blank" rel="noopener noreferrer" className="px-8 py-3 bg-brand-gold text-brand-navy font-sans font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-colors shadow-lg">
                  Solicitar Serviço Semelhante
                </a>
             </div>

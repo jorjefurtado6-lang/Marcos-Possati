@@ -54,7 +54,9 @@ export default function Navbar() {
               ))}
             </nav>
             <a
-              href="/#contato"
+              href="https://wa.me/5511978711905"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-2 bg-brand-gold text-brand-navy font-sans font-bold uppercase text-[10px] tracking-widest hover:brightness-110 transition-all duration-300"
             >
               Solicitar Orçamento
@@ -98,7 +100,9 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="/#contato"
+                href="https://wa.me/5511978711905"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-8 px-8 py-3 bg-brand-gold text-brand-navy font-sans font-bold uppercase text-xs tracking-widest shadow-lg whitespace-nowrap"
               >

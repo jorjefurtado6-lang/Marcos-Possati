@@ -52,7 +52,9 @@ export default function Hero() {
           className="mt-8 flex flex-col sm:flex-row gap-6 justify-center"
         >
           <a
-            href="#contato"
+            href="https://wa.me/5511978711905"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 bg-brand-gold text-brand-navy font-sans font-bold text-[10px] uppercase tracking-widest hover:brightness-110 transition-all duration-300"
           >
             Solicitar Orçamento

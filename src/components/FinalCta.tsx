@@ -27,7 +27,9 @@ export default function FinalCta() {
           </p>
           
           <a
-            href="#contato"
+            href="https://wa.me/5511978711905"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block px-10 py-5 bg-brand-gold text-brand-navy font-bold text-[10px] uppercase tracking-widest hover:brightness-110 transition-all duration-300 shadow-xl"
           >
             Solicitar Orçamento

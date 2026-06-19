@@ -96,7 +96,9 @@ export default function Packages() {
             </div>
             <div className="p-6 bg-brand-navy border-t border-brand-gold/30">
                <a
-                  href="#contato"
+                  href="https://wa.me/5511978711905"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-full text-center py-4 border border-brand-gold text-brand-gold font-sans font-bold hover:bg-brand-gold hover:text-brand-navy transition-all duration-300 tracking-widest uppercase text-[10px]"
                 >
                   Solicitar Orçamento
@@ -155,7 +157,9 @@ export default function Packages() {
             </div>
             <div className="p-6 bg-brand-navy border-t border-brand-gold/30">
                <a
-                  href="#contato"
+                  href="https://wa.me/5511978711905"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-full text-center py-4 bg-brand-gold text-brand-navy font-sans font-bold hover:brightness-110 shadow-lg transition-all duration-300 tracking-widest uppercase text-[10px]"
                 >
                   Solicitar Orçamento
