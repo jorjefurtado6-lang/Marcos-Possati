@@ -26,7 +26,7 @@ const differentials = [
 
 export default function Differentials() {
   return (
-    <section id="diferenciais" className="py-24 bg-[#051325] relative overflow-hidden">
+    <section id="diferenciais" className="py-12 bg-[#051325] relative overflow-hidden mt-[-20px]">
       {/* Decorative background lines */}
       <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#D4A64A 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
       
@@ -36,7 +36,7 @@ export default function Differentials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 border-b-2 border-brand-gold pb-4 inline-block"
+            className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 border-b-2 border-brand-gold pb-4 inline-block mt-[-50px]"
           >
             Valores e <span className="text-brand-gold italic">Diferenciais</span>
           </motion.h2>

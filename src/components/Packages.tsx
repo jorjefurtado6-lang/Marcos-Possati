@@ -34,7 +34,7 @@ export default function Packages() {
     return () => unsub();
   }, []);
   return (
-    <section id="pacotes" className="py-24 bg-[#051325] relative">
+    <section id="pacotes" className="py-12 bg-[#051325] relative mt-[-20px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 border-b-2 border-brand-gold pb-4 inline-block">

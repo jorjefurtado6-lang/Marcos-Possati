@@ -36,7 +36,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="servicos" className="py-24 bg-[#051325] relative">
+    <section id="servicos" className="py-12 bg-[#051325] relative mt-[-20px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2 

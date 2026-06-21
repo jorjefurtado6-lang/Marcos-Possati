@@ -14,7 +14,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-brand-navy/90"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-8 md:mt-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ export default function Hero() {
           className="inline-block mb-4 relative"
         >
           <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-brand-gold opacity-50 -translate-x-2 -translate-y-2"></div>
-          <span className="text-brand-gold font-sans font-bold tracking-[0.4em] text-[12px] uppercase">
+          <span className="text-brand-gold font-sans font-bold tracking-[0.4em] text-[12px] uppercase pt-0 mt-0">
             Portfólio Profissional
           </span>
         </motion.div>
@@ -42,7 +42,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="mt-4 text-xl md:text-2xl text-white opacity-80 max-w-3xl mx-auto font-serif italic mb-8"
         >
-          Excelência em Revisão de Textos, Redação e Edição de Conteúdo Profissional.
+          Excelência em Revisão de Textos, Redação e Edição de Conteúdo Profissional
         </motion.p>
 
         <motion.div

@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 
 export default function FinalCta() {
   return (
-    <section className="py-24 bg-[#051325] relative overflow-hidden border-y border-brand-gold/30">
+    <section className="py-12 bg-[#051325] relative overflow-hidden border-y border-brand-gold/30">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         
         <motion.div
