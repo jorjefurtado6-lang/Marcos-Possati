@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "Marcos Possati Portifólio",
+  "description": "Portfólio profissional de Marcos Possati para serviços de revisão ortográfica, tradução, redação e legenda.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
