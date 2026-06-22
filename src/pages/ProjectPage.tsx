@@ -58,11 +58,6 @@ export default function ProjectPage() {
   const [project, setProject] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const handleOpenInNewTab = () => {
-    if (!project || !project.documentFile) return;
-    window.open(`/trabalho/${id}/ver`, '_blank');
-  };
-
   useEffect(() => {
     const fetchProject = async () => {
       window.scrollTo(0, 0);
@@ -185,12 +180,12 @@ export default function ProjectPage() {
                       </div>
                       <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
                         {isPdf && (
-                          <button
-                            onClick={handleOpenInNewTab}
+                          <Link
+                            to={`/trabalho/${id}/ver`}
                             className="w-full sm:w-auto px-5 py-2.5 border border-brand-gold/50 hover:border-brand-gold text-brand-gold font-sans font-bold text-xs uppercase tracking-widest hover:bg-brand-gold/10 transition-all duration-300 rounded-sm shadow-md flex items-center justify-center gap-2"
                           >
                             <ExternalLink size={14} /> Visualizar
-                          </button>
+                          </Link>
                         )}
                         <a
                           href={project.documentFile}

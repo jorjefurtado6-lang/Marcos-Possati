@@ -202,7 +202,14 @@ export default function PdfViewerPage() {
       {/* Top Header Controls bar */}
       <header className="flex justify-between items-center px-4 py-3 md:px-6 md:py-4 border-b border-brand-gold/30 bg-[#071B33] sticky top-0 z-50 shadow-md">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            const hasHistory = window.history.state && window.history.state.idx > 0;
+            if (hasHistory && document.referrer && document.referrer.includes(window.location.host)) {
+              navigate(-1);
+            } else {
+              navigate(`/trabalho/${id}`);
+            }
+          }}
           className="flex items-center gap-2 hover:text-brand-gold text-white/90 text-xs md:text-sm font-bold uppercase tracking-widest transition-all p-2 rounded-sm"
         >
           <ArrowLeft size={16} />
