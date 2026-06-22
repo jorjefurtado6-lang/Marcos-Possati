@@ -6,6 +6,7 @@ import AdminPortfolio from './pages/admin/AdminPortfolio';
 import AdminPackages from './pages/admin/AdminPackages';
 import AdminTestimonials from './pages/admin/AdminTestimonials';
 import ProjectPage from './pages/ProjectPage';
+import PdfViewerPage from './pages/PdfViewerPage';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/trabalho/:id" element={<ProjectPage />} />
+        <Route path="/trabalho/:id/ver" element={<PdfViewerPage />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="portfolio" element={<AdminPortfolio />} />

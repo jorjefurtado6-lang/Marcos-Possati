@@ -57,37 +57,10 @@ export default function ProjectPage() {
   const navigate = useNavigate();
   const [project, setProject] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
-  const [viewingPdf, setViewingPdf] = useState(false);
 
   const handleOpenInNewTab = () => {
     if (!project || !project.documentFile) return;
-
-    // If it's a base64 data URL, convert it to a Blob and open that
-    if (project.documentFile.startsWith('data:')) {
-      try {
-        const parts = project.documentFile.split(';base64,');
-        const contentType = parts[0].split(':')[1];
-        const raw = window.atob(parts[1]);
-        const rawLength = raw.length;
-        const uInt8Array = new Uint8Array(rawLength);
-        
-        for (let i = 0; i < rawLength; ++i) {
-          uInt8Array[i] = raw.charCodeAt(i);
-        }
-        
-        const blob = new Blob([uInt8Array], { type: contentType });
-        const blobUrl = URL.createObjectURL(blob);
-        const newWindow = window.open(blobUrl, '_blank');
-        if (newWindow) {
-          newWindow.focus();
-        }
-      } catch (e) {
-        console.error("Error creating blob from base64:", e);
-        window.open(project.documentFile, '_blank');
-      }
-    } else {
-      window.open(project.documentFile, '_blank');
-    }
+    window.open(`/trabalho/${id}/ver`, '_blank');
   };
 
   useEffect(() => {
@@ -244,6 +217,7 @@ export default function ProjectPage() {
           </div>
         </motion.div>
       </main>
+
       <Footer />
     </div>
   );

@@ -23,7 +23,7 @@ export default function FinalCta() {
           </h2>
           
           <p className="text-lg text-white/70 mb-10 max-w-2xl mx-auto font-sans">
-            Solicite um orçamento personalizado e receba atendimento profissional focado em extrair o máximo de potencial do seu conteúdo.
+            Solicite um orçamento personalizado e receba atendimento profissional, focado em extrair o máximo de potencial do seu conteúdo.
           </p>
           
           <a

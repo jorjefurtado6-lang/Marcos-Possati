@@ -5,22 +5,22 @@ const differentials = [
   {
     icon: <Clock className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
     title: "7 anos de experiência",
-    description: "Atuação consolidada em revisão textual e edição de conteúdo, proporcionando maturidade técnica ao seu material."
+    description: "em revisão textual e edição de conteúdo."
   },
   {
     icon: <ShieldCheck className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
-    title: "Excelência e rigor técnico",
-    description: "Rígido controle de qualidade e perfeccionismo gramatical aplicados em cada etapa do processo de revisão."
+    title: "Excelência e rigor",
+    description: "técnico em cada etapa do trabalho."
   },
   {
     icon: <HeartHandshake className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
-    title: "Compromisso absoluto",
-    description: "Foco total na qualidade, clareza e eficiência da comunicação, zelando pela integridade da sua mensagem."
+    title: "Compromisso absoluto com a qualidade",
+    description: "e clareza da comunicação."
   },
   {
     icon: <Eye className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
     title: "Identificação precisa de falhas",
-    description: "Diagnóstico certeiro de desvios gramaticais, inconsistências estruturais e inadequações estilísticas."
+    description: "gramaticais, estruturais e estilísticas."
   }
 ];
 

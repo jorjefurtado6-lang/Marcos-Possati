@@ -2,13 +2,20 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const navLinks = [
+interface NavLink {
+  name: string;
+  href: string;
+  target?: string;
+  rel?: string;
+}
+
+const navLinks: NavLink[] = [
   { name: 'Sobre Mim', href: '/#sobre-mim' },
   { name: 'Diferenciais', href: '/#diferenciais' },
   { name: 'Pacotes', href: '/#pacotes' },
   { name: 'Serviços', href: '/#servicos' },
   { name: 'Meus Trabalhos', href: '/#portfolio' },
-  { name: 'Contato', href: 'https://wa.me/5511978711905', target: '_blank', rel: 'noopener noreferrer' },
+  { name: 'Contato', href: '/#contato' },
 ];
 
 export default function Navbar() {
