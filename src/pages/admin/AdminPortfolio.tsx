@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../lib/firebase";
-import { Plus, Trash2, Edit2, X } from "lucide-react";
+import { Plus, Trash2, Edit2, X, FileText, Upload } from "lucide-react";
 
 import { motion } from "motion/react";
 export default function AdminPortfolio() {
@@ -21,6 +21,40 @@ export default function AdminPortfolio() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [documentFile, setDocumentFile] = useState("");
+  const [documentName, setDocumentName] = useState("");
+  const [fileError, setFileError] = useState("");
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setFileError("");
+
+    // Limit base64 document sizes to ~800KB for Firestore documents safety (1MB limit)
+    if (file.size > 800 * 1024) {
+      setFileError("Arquivo muito grande. O limite máximo é de 800KB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setDocumentFile(reader.result);
+        setDocumentName(file.name);
+      }
+    };
+    reader.onerror = () => {
+      setFileError("Erro ao ler o arquivo.");
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeFile = () => {
+    setDocumentFile("");
+    setDocumentName("");
+    setFileError("");
+  };
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "portfolio"), (snapshot) => {
@@ -36,6 +70,9 @@ export default function AdminPortfolio() {
     setCategory("");
     setDescription("");
     setImage("");
+    setDocumentFile("");
+    setDocumentName("");
+    setFileError("");
     setCurrentId(null);
     setIsEditing(false);
   };
@@ -45,6 +82,9 @@ export default function AdminPortfolio() {
     setCategory(item.category);
     setDescription(item.description);
     setImage(item.image);
+    setDocumentFile(item.documentFile || "");
+    setDocumentName(item.documentName || "");
+    setFileError("");
     setCurrentId(item.id);
     setIsEditing(true);
   };
@@ -57,7 +97,14 @@ export default function AdminPortfolio() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = { title, category, description, image };
+    const data = { 
+      title, 
+      category, 
+      description, 
+      image,
+      documentFile,
+      documentName
+    };
     if (currentId) {
       await updateDoc(doc(db, "portfolio", currentId), data);
     } else {
@@ -129,17 +176,63 @@ export default function AdminPortfolio() {
                 />
               </div>
             </div>
-            <div>
-              <label className="block text-white/50 text-[10px] uppercase tracking-widest mb-2">
-                URL da Imagem de Capa
-              </label>
-              <input
-                required
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                className="w-full bg-[#051325] border border-brand-gold/20 p-3 text-white text-sm outline-none focus:border-brand-gold transition-colors rounded-sm shadow-inner"
-                placeholder="https://exemplo.com/imagem.jpg"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-white/50 text-[10px] uppercase tracking-widest mb-2">
+                  URL da Imagem de Capa
+                </label>
+                <input
+                  required
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  className="w-full bg-[#051325] border border-brand-gold/20 p-3 text-white text-sm outline-none focus:border-brand-gold transition-colors rounded-sm shadow-inner"
+                  placeholder="https://exemplo.com/imagem.jpg"
+                />
+              </div>
+              <div>
+                <label className="block text-white/50 text-[10px] uppercase tracking-widest mb-2">
+                  Documento de Apoio (Word ou PDF) - Opcional
+                </label>
+                <div className="w-full bg-[#051325] border border-brand-gold/20 p-3 rounded-sm shadow-inner flex items-center justify-between gap-4">
+                  {documentName ? (
+                    <div className="flex items-center gap-2 overflow-hidden flex-1">
+                      <FileText className="text-brand-gold w-4 h-4 shrink-0" />
+                      <span className="text-white text-xs truncate" title={documentName}>
+                        {documentName}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-white/40 text-xs">
+                      Nenhum arquivo selecionado (.pdf, .doc, .docx)
+                    </span>
+                  )}
+                  
+                  <div className="flex items-center gap-2">
+                    {documentName ? (
+                      <button
+                        type="button"
+                        onClick={removeFile}
+                        className="text-red-400 hover:text-red-300 text-[10px] uppercase tracking-widest font-bold"
+                      >
+                        Remover
+                      </button>
+                    ) : (
+                      <label className="cursor-pointer text-brand-gold hover:text-white text-[10px] uppercase tracking-widest font-bold flex items-center gap-1">
+                        <Upload size={12} /> Selecionar
+                        <input
+                          type="file"
+                          accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                          onChange={handleFileChange}
+                          className="hidden"
+                        />
+                      </label>
+                    )}
+                  </div>
+                </div>
+                {fileError && (
+                  <p className="text-red-400 text-xs mt-1">{fileError}</p>
+                )}
+              </div>
             </div>
             <div>
               <label className="block text-white/50 text-[10px] uppercase tracking-widest mb-2">
@@ -191,9 +284,15 @@ export default function AdminPortfolio() {
                   <h4 className="font-serif font-bold text-xl text-white mb-3">
                     {item.title}
                   </h4>
-                  <p className="text-white/50 text-sm line-clamp-3 mb-6 flex-1">
+                  <p className="text-white/50 text-sm line-clamp-3 mb-4 flex-1">
                     {item.description}
                   </p>
+                  {item.documentName && (
+                    <div className="flex items-center gap-1.5 text-brand-gold text-xs mb-4 select-none bg-[#051325]/50 px-2 py-1 rounded w-fit max-w-full">
+                      <FileText size={12} className="shrink-0" />
+                      <span className="truncate" title={item.documentName}>{item.documentName}</span>
+                    </div>
+                  )}
                   <div className="flex gap-4 pt-4 border-t border-brand-gold/10">
                     <button
                       onClick={() => handleEdit(item)}

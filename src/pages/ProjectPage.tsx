@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, FileText } from 'lucide-react';
 import { motion } from 'motion/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -155,11 +155,34 @@ export default function ProjectPage() {
 
           <div className="p-8 md:p-12 text-white">
             <h2 className="text-sm uppercase font-bold tracking-widest text-brand-gold mb-6 border-b border-brand-gold/20 pb-2">Detalhes do Projeto</h2>
-            <div className="prose prose-invert prose-brand-gold max-w-none">
+            <div className="prose prose-invert prose-brand-gold max-w-none pb-4">
               <p className="text-white/80 font-sans leading-relaxed text-lg whitespace-pre-wrap">
                 {project.description}
               </p>
             </div>
+
+            {project.documentFile && (
+              <div className="mt-8 bg-[#051325]/50 border border-brand-gold/20 rounded-sm p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center rounded-sm text-brand-gold shrink-0">
+                    <FileText size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-serif font-bold text-sm">Material de Apoio / Trabalho Original</h4>
+                    <p className="text-white/50 text-xs truncate max-w-[250px] sm:max-w-md" title={project.documentName}>
+                      {project.documentName || "documento_projeto"}
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href={project.documentFile}
+                  download={project.documentName || "documento_projeto"}
+                  className="w-full sm:w-auto text-center px-6 py-2.5 bg-brand-gold text-brand-navy font-sans font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all duration-300 rounded-sm shadow-md"
+                >
+                  Baixar Arquivo
+                </a>
+              </div>
+            )}
             
             <div className="mt-12 flex justify-end items-center gap-4 pt-8 border-t border-brand-gold/10">
                <Link to="/" className="text-white/50 hover:text-white transition-colors text-sm uppercase tracking-widest">

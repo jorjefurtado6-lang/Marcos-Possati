@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -101,6 +101,12 @@ export default function Portfolio() {
                   <p className="text-brand-beige/80 text-sm line-clamp-2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                     {item.description}
                   </p>
+                  {item.documentName && (
+                    <div className="flex items-center gap-1.5 text-brand-gold text-xs mb-3 font-sans opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150">
+                      <FileText size={12} className="shrink-0" />
+                      <span className="truncate max-w-[200px]" title={item.documentName}>{item.documentName}</span>
+                    </div>
+                  )}
                   <button className="flex items-center gap-2 text-white font-medium hover:text-brand-gold transition-colors text-sm border-b border-brand-gold pb-1 w-fit opacity-0 group-hover:opacity-100 duration-300 delay-200">
                     Visualizar Trabalho
                     <ExternalLink className="w-4 h-4" />

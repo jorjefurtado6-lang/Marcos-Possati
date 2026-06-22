@@ -8,7 +8,9 @@
         "title": { "type": "string" },
         "category": { "type": "string" },
         "description": { "type": "string" },
-        "image": { "type": "string" }
+        "image": { "type": "string" },
+        "documentFile": { "type": "string" },
+        "documentName": { "type": "string" }
       },
       "required": ["title", "category", "description", "image"]
     },
