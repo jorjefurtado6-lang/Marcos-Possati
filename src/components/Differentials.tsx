@@ -4,23 +4,23 @@ import { Clock, ShieldCheck, HeartHandshake, Eye } from 'lucide-react';
 const differentials = [
   {
     icon: <Clock className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
-    title: "7 Anos de Experiência",
-    description: "Bagagem sólida atuando com diversos formatos e nichos, garantindo maturidade literária e técnica ao seu projeto."
+    title: "7 anos de experiência",
+    description: "Atuação consolidada em revisão textual e edição de conteúdo, proporcionando maturidade técnica ao seu material."
   },
   {
     icon: <ShieldCheck className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
-    title: "Padrões Elevados e Rigorosos",
-    description: "Cada palavra é tratada com extrema importância. Não aceito nada menos que a perfeição estrutural e gramatical."
+    title: "Excelência e rigor técnico",
+    description: "Rígido controle de qualidade e perfeccionismo gramatical aplicados em cada etapa do processo de revisão."
   },
   {
     icon: <HeartHandshake className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
-    title: "Atendimento Personalizado",
-    description: "Comunicação direta, transparente e adaptada ao seu estilo. Seu projeto é tratado como único e valioso."
+    title: "Compromisso absoluto",
+    description: "Foco total na qualidade, clareza e eficiência da comunicação, zelando pela integridade da sua mensagem."
   },
   {
     icon: <Eye className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
-    title: "Identificação Precisa de Falhas",
-    description: "Olhar clínico para inconsistências argumentativas, repetições, vícios de linguagem e desvios nas normas."
+    title: "Identificação precisa de falhas",
+    description: "Diagnóstico certeiro de desvios gramaticais, inconsistências estruturais e inadequações estilísticas."
   }
 ];
 

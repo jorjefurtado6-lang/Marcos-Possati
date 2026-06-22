@@ -57,6 +57,38 @@ export default function ProjectPage() {
   const navigate = useNavigate();
   const [project, setProject] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
+  const [viewingPdf, setViewingPdf] = useState(false);
+
+  const handleOpenInNewTab = () => {
+    if (!project || !project.documentFile) return;
+
+    // If it's a base64 data URL, convert it to a Blob and open that
+    if (project.documentFile.startsWith('data:')) {
+      try {
+        const parts = project.documentFile.split(';base64,');
+        const contentType = parts[0].split(':')[1];
+        const raw = window.atob(parts[1]);
+        const rawLength = raw.length;
+        const uInt8Array = new Uint8Array(rawLength);
+        
+        for (let i = 0; i < rawLength; ++i) {
+          uInt8Array[i] = raw.charCodeAt(i);
+        }
+        
+        const blob = new Blob([uInt8Array], { type: contentType });
+        const blobUrl = URL.createObjectURL(blob);
+        const newWindow = window.open(blobUrl, '_blank');
+        if (newWindow) {
+          newWindow.focus();
+        }
+      } catch (e) {
+        console.error("Error creating blob from base64:", e);
+        window.open(project.documentFile, '_blank');
+      }
+    } else {
+      window.open(project.documentFile, '_blank');
+    }
+  };
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -162,26 +194,43 @@ export default function ProjectPage() {
             </div>
 
             {project.documentFile && (
-              <div className="mt-8 bg-[#051325]/50 border border-brand-gold/20 rounded-sm p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center rounded-sm text-brand-gold shrink-0">
-                    <FileText size={24} />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-serif font-bold text-sm">Material de Apoio / Trabalho Original</h4>
-                    <p className="text-white/50 text-xs truncate max-w-[250px] sm:max-w-md" title={project.documentName}>
-                      {project.documentName || "documento_projeto"}
-                    </p>
-                  </div>
-                </div>
-                <a
-                  href={project.documentFile}
-                  download={project.documentName || "documento_projeto"}
-                  className="w-full sm:w-auto text-center px-6 py-2.5 bg-brand-gold text-brand-navy font-sans font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all duration-300 rounded-sm shadow-md"
-                >
-                  Baixar Arquivo
-                </a>
-              </div>
+              (() => {
+                const isPdf = project.documentName?.toLowerCase().endsWith('.pdf') || project.documentFile?.startsWith('data:application/pdf');
+                return (
+                  <>
+                    <div className="mt-8 bg-[#051325]/50 border border-brand-gold/20 rounded-sm p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center rounded-sm text-brand-gold shrink-0">
+                          <FileText size={24} />
+                        </div>
+                        <div>
+                          <h4 className="text-white font-serif font-bold text-sm">Material de Apoio / Trabalho Original</h4>
+                          <p className="text-white/50 text-xs truncate max-w-[250px] sm:max-w-md" title={project.documentName}>
+                            {project.documentName || "documento_projeto"}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
+                        {isPdf && (
+                          <button
+                            onClick={handleOpenInNewTab}
+                            className="w-full sm:w-auto px-5 py-2.5 border border-brand-gold/50 hover:border-brand-gold text-brand-gold font-sans font-bold text-xs uppercase tracking-widest hover:bg-brand-gold/10 transition-all duration-300 rounded-sm shadow-md flex items-center justify-center gap-2"
+                          >
+                            <ExternalLink size={14} /> Visualizar
+                          </button>
+                        )}
+                        <a
+                          href={project.documentFile}
+                          download={project.documentName || "documento_projeto"}
+                          className="w-full sm:w-auto text-center px-5 py-2.5 bg-brand-gold text-brand-navy font-sans font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all duration-300 rounded-sm shadow-md flex items-center justify-center gap-2"
+                        >
+                          Baixar Arquivo
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                );
+              })()
             )}
             
             <div className="mt-12 flex justify-end items-center gap-4 pt-8 border-t border-brand-gold/10">

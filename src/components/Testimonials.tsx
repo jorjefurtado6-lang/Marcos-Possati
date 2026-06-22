@@ -9,19 +9,19 @@ const defaultTestimonials = [
     id: '1',
     quote: "Trabalhar com o Marcos foi excelente. Ele elaborou conteúdos complexos com uma grande atenção aos detalhes. Os textos têm fluidez, clareza e são muito bem elaborados.",
     author: "Ana Paula R.",
-    role: "Gestora de Conteúdo"
+    role: ""
   },
   {
     id: '2',
-    quote: "Excelente trabalho na revisão do meu livro. Muito profissional! Captou perfeitamente a voz da obra sem cometer interferências indevidas. Recomendo fortemente para autores.",
+    quote: "Excelente trabalho na revisão do meu livro. Muito profissional!",
     author: "Marcos S. A.",
-    role: "Escritor Independente"
+    role: ""
   },
   {
     id: '3',
-    quote: "Atendimento rápido, edição impecável e compromisso com o prazo. Melhorou significativamente a qualidade e a conversão dos meus textos institucionais. Recomendo!",
+    quote: "Atendimento rápido e edição impecável. Recomendo!",
     author: "Carla D. M.",
-    role: "Diretora de Marketing"
+    role: ""
   }
 ];
 
@@ -74,7 +74,9 @@ export default function Testimonials() {
               </p>
               <div>
                 <p className="text-[#071B33] font-bold text-[10px] uppercase tracking-widest">— {items[currentIndex]?.author}</p>
-                <p className="text-brand-navy/50 text-xs font-sans mt-1">{items[currentIndex]?.role}</p>
+                {items[currentIndex]?.role && (
+                  <p className="text-brand-navy/50 text-xs font-sans mt-1">{items[currentIndex]?.role}</p>
+                )}
               </div>
             </motion.div>
           </AnimatePresence>

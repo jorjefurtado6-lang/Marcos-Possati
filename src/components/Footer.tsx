@@ -33,9 +33,9 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:marcopossati@hotmail.com" className="flex items-center gap-3 hover:text-brand-gold transition-colors">
+                <a href="mailto:marcospossati@hotmail.com" className="flex items-center gap-3 hover:text-brand-gold transition-colors">
                   <Mail className="w-4 h-4 text-brand-gold" />
-                  <span>marcopossati@hotmail.com</span>
+                  <span>marcospossati@hotmail.com</span>
                 </a>
               </li>
             </ul>

@@ -7,8 +7,8 @@ const navLinks = [
   { name: 'Diferenciais', href: '/#diferenciais' },
   { name: 'Pacotes', href: '/#pacotes' },
   { name: 'Serviços', href: '/#servicos' },
-  { name: 'Portfólio', href: '/#portfolio' },
-  { name: 'Depoimentos', href: '/#depoimentos' },
+  { name: 'Meus Trabalhos', href: '/#portfolio' },
+  { name: 'Contato', href: 'https://wa.me/5511978711905', target: '_blank', rel: 'noopener noreferrer' },
 ];
 
 export default function Navbar() {
@@ -47,6 +47,8 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
+                  target={link.target}
+                  rel={link.rel}
                   className="hover:text-brand-gold transition-colors"
                 >
                   {link.name}
@@ -93,6 +95,8 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
+                  target={link.target}
+                  rel={link.rel}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-xl font-serif text-white hover:text-brand-gold transition-colors"
                 >

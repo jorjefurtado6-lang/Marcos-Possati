@@ -4,33 +4,28 @@ import { PenTool, CheckSquare, AlignLeft, BookOpen, FileText, Subtitles } from '
 const services = [
   {
     icon: <PenTool className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
-    title: "Redação Corporativa",
-    description: "Criação de artigos, e-books e copys persuasivas alinhadas à voz da sua marca."
+    title: "Redação",
+    description: "Criação de artigos para blogs, portais de notícias, sites institucionais, conteúdos informativos, textos acadêmicos e materiais personalizados, de acordo com a necessidade do cliente."
   },
   {
     icon: <CheckSquare className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
     title: "Revisão Textual",
-    description: "Correção ortográfica, gramatical e sintática, garantindo fluidez e coesão."
-  },
-  {
-    icon: <AlignLeft className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
-    title: "Padronização",
-    description: "Ajuste de textos para uma linguagem uniforme, respeitando guias de estilo."
+    description: "Correção gramatical, garantindo clareza, coerência, coesão e qualidade profissional ao texto."
   },
   {
     icon: <BookOpen className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
-    title: "Normas ABNT",
-    description: "Formatação rigorosa de TCCs, monografias, dissertações e artigos acadêmicos."
+    title: "Padronização ABNT",
+    description: "Adequação de trabalhos acadêmicos às normas da ABNT, incluindo formatação, citações, referências, sumário, paginação e demais elementos exigidos."
   },
   {
     icon: <FileText className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
     title: "Edição de Textos",
-    description: "Reestruturação profunda para melhorar a clareza, impacto e ritmo da leitura."
+    description: "Reestruturação e aprimoramento de conteúdos para melhorar a organização, fluidez, legibilidade, estilo e adequação ao público-alvo."
   },
   {
     icon: <Subtitles className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
     title: "Legendagem",
-    description: "Transcrição e criação de legendas precisas e sincronizadas para vídeos."
+    description: "Criação e sincronização de legendas para vídeos, aulas, palestras, entrevistas, conteúdos institucionais e materiais para redes sociais."
   }
 ];
 
