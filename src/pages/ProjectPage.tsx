@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import Footer from '../components/Footer';
+import { renderTextWithLinks } from '../lib/linkUtils';
 
 // Use same default items for fallback
 const defaultPortfolioItems = [
@@ -157,7 +158,7 @@ export default function ProjectPage() {
             <h2 className="text-sm uppercase font-bold tracking-widest text-brand-gold mb-6 border-b border-brand-gold/20 pb-2">Detalhes do Projeto</h2>
             <div className="prose prose-invert prose-brand-gold max-w-none pb-4">
               <p className="text-white/80 font-sans leading-relaxed text-lg whitespace-pre-wrap">
-                {project.description}
+                {renderTextWithLinks(project.description)}
               </p>
             </div>
 

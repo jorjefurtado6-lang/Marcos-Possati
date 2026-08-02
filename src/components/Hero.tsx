@@ -42,7 +42,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="mt-4 text-xl md:text-2xl text-white opacity-80 max-w-3xl mx-auto font-serif italic mb-8"
         >
-          Excelência em Revisão de Textos, Redação e Edição de Conteúdo Profissional
+          Excelência em Revisão de Textos, Redação e Edição de Conteúdo
         </motion.p>
 
         <motion.div

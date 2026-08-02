@@ -18,6 +18,8 @@ export default function PdfViewerPage() {
   const [numPages, setNumPages] = useState(0);
   const [scale, setScale] = useState(1.0);
   const [rendering, setRendering] = useState(false);
+  const [pageLinks, setPageLinks] = useState<Array<{ url: string; left: number; top: number; width: number; height: number }>>([]);
+  const [viewportDims, setViewportDims] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -160,6 +162,92 @@ export default function PdfViewerPage() {
 
         renderTask = page.render(renderContext);
         await renderTask.promise;
+
+        if (!active) return;
+        setViewportDims({ width: viewport.width, height: viewport.height });
+
+        // Extract link annotations and plain text URLs from the PDF page
+        const extractedLinks: Array<{ url: string; left: number; top: number; width: number; height: number }> = [];
+
+        try {
+          // 1. PDF Link Annotations
+          const annotations = await page.getAnnotations();
+          for (const annot of annotations) {
+            if (annot.subtype === 'Link' || annot.annotationType === 1) {
+              const url = annot.url || annot.unsafeUrl;
+              if (url && annot.rect) {
+                const rect = viewport.convertToViewportRectangle(annot.rect);
+                const left = Math.min(rect[0], rect[2]);
+                const top = Math.min(rect[1], rect[3]);
+                const width = Math.abs(rect[2] - rect[0]);
+                const height = Math.abs(rect[3] - rect[1]);
+
+                if (width > 0 && height > 0) {
+                  extractedLinks.push({
+                    url: url.startsWith('www.') ? `https://${url}` : url,
+                    left,
+                    top,
+                    width,
+                    height,
+                  });
+                }
+              }
+            }
+          }
+
+          // 2. Text Content URL extraction (for plain text URLs printed inside the document)
+          const textContent = await page.getTextContent();
+          const urlRegex = /(https?:\/\/[^\s<]+|www\.[^\s<]+)/gi;
+
+          for (const item of textContent.items) {
+            if ('str' in item && item.str) {
+              const str = item.str as string;
+              const matches = str.match(urlRegex);
+              if (matches) {
+                for (const rawUrl of matches) {
+                  let cleanUrl = rawUrl;
+                  const matchPunc = cleanUrl.match(/([.,;:!?)]+)$/);
+                  if (matchPunc) {
+                    cleanUrl = cleanUrl.slice(0, cleanUrl.length - matchPunc[0].length);
+                  }
+
+                  const fullUrl = cleanUrl.toLowerCase().startsWith('www.') ? `https://${cleanUrl}` : cleanUrl;
+
+                  const alreadyAdded = extractedLinks.some(l => l.url === fullUrl);
+                  if (!alreadyAdded) {
+                    const transform = item.transform || [1, 0, 0, 1, 0, 0];
+                    const x = transform[4];
+                    const y = transform[5];
+                    const itemWidth = item.width || 100;
+                    const itemHeight = item.height || Math.abs(transform[0]) || 12;
+
+                    const pdfRect = [x, y, x + itemWidth, y + itemHeight];
+                    const rect = viewport.convertToViewportRectangle(pdfRect);
+
+                    const left = Math.min(rect[0], rect[2]);
+                    const top = Math.min(rect[1], rect[3]);
+                    const width = Math.max(Math.abs(rect[2] - rect[0]), 20);
+                    const height = Math.max(Math.abs(rect[3] - rect[1]), 14);
+
+                    extractedLinks.push({
+                      url: fullUrl,
+                      left,
+                      top,
+                      width,
+                      height,
+                    });
+                  }
+                }
+              }
+            }
+          }
+        } catch (linkErr) {
+          console.warn('Error extracting links from PDF page:', linkErr);
+        }
+
+        if (active) {
+          setPageLinks(extractedLinks);
+        }
       } catch (err) {
         console.error('Page render error:', err);
       } finally {
@@ -306,10 +394,36 @@ export default function PdfViewerPage() {
 
             {/* Document Canvas Holder */}
             <div className="w-full flex justify-center overflow-auto max-h-[70vh] bg-[#030c17] border border-brand-gold/10 p-3 md:p-6 rounded-md shadow-2xl">
-              <canvas
-                ref={canvasRef}
-                className="bg-white shadow-xl transition-all duration-200"
-              />
+              <div
+                className="relative shadow-xl transition-all duration-200"
+                style={{
+                  width: viewportDims.width ? `${viewportDims.width}px` : 'auto',
+                  height: viewportDims.height ? `${viewportDims.height}px` : 'auto',
+                }}
+              >
+                <canvas
+                  ref={canvasRef}
+                  className="bg-white block w-full h-full"
+                />
+                {pageLinks.map((link, idx) => (
+                  <a
+                    key={idx}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={`Abrir: ${link.url}`}
+                    className="absolute cursor-pointer bg-amber-400/10 hover:bg-amber-400/30 border border-amber-400/40 hover:border-amber-400/80 transition-all rounded-xs z-20"
+                    style={{
+                      left: `${link.left}px`,
+                      top: `${link.top}px`,
+                      width: `${link.width}px`,
+                      height: `${link.height}px`,
+                    }}
+                  >
+                    <span className="sr-only">{link.url}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         )}
