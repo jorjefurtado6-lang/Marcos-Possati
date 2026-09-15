@@ -19,44 +19,23 @@ export default function About() {
               </h2>
             </div>
             
-            <div className="space-y-6 text-lg text-white/70 font-sans leading-relaxed w-full">
-              <p className="text-xl text-white font-medium italic opacity-90 font-serif">
-                Revisor de textos, formado em Letras (Português/Inglês), focado em clareza, fluidez e correção gramatical.
+            <div className="space-y-6 text-lg text-white/85 font-sans leading-relaxed w-full">
+              <p className="whitespace-pre-wrap">
+                {"  "}Sou redator, revisor e editor de textos, formado em Letras (Português/Inglês), com pós-graduação em Revisão de Textos.
               </p>
               
-              <p>
-                Tenho <strong className="text-brand-gold">mais de 7 anos de experiência</strong> em análise e aprimoramento textual, atribuindo um olhar técnico a problemas que comprometem a compreensão e a qualidade da escrita.
+              <p className="whitespace-pre-wrap">
+                {"  "}Tenho mais de 7 anos de experiência em análise, produção, revisão e aprimoramento textual, com foco em clareza, fluidez, correção gramatical e adequação do conteúdo ao público e ao objetivo de cada projeto.
               </p>
               
-              <p>
-                Meu trabalho vai além de corrigir erros: identifico falhas que afetam a interpretação, a credibilidade e o impacto do conteúdo, como redundâncias, construções confusas e inadequações ao público.
+              <p className="whitespace-pre-wrap">
+                {"  "}Meu trabalho vai além da correção de erros: identifico problemas que comprometem a compreensão, a organização e a qualidade do texto, como redundâncias, construções confusas, falhas de coesão e inadequações de linguagem.
               </p>
 
-              <p>
-                Trabalho, principalmente, com materiais digitais, informativos e sites, nos quais a qualidade da escrita influencia, diretamente, a experiência do leitor e os resultados. Em resumo, minha abordagem consiste em:
-              </p>
-              
-              <ul className="mt-8 space-y-4">
-                {[
-                  'Eliminar erros gramaticais e ortográficos',
-                  'Melhorar a fluidez e a organização das ideias',
-                  'Reduzir excessos e repetições',
-                  'Adequar o texto ao público e ao contexto'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start">
-                    <span className="text-brand-gold mr-3 transform translate-y-0.5">✦</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="pt-4 border-t border-brand-gold/10 italic">
-                Cada intervenção é feita com critério, preservando o sentido original, tornando a comunicação mais clara e eficiente.
+              <p className="whitespace-pre-wrap">
+                {"  "}Também possuo formação complementar em Inteligência Artificial aplicada à escrita, Material Didático, Marketing Digital e SEO, ampliando minha atuação em diferentes tipos de conteúdo e projetos digitais.
               </p>
             </div>
-            
-
-            
           </motion.div>
         </div>
       </div>

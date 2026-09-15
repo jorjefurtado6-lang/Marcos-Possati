@@ -3,6 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Loader2, AlertCircle } from 'lucide-react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import * as pdfjsLib from 'pdfjs-dist';
+
+// Set workerSrc for pdfjs
+if (typeof window !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+}
 
 export default function PdfViewerPage() {
   const { id } = useParams();
@@ -12,7 +18,6 @@ export default function PdfViewerPage() {
   const [error, setError] = useState<string | null>(null);
 
   // PDF.js State
-  const [pdfjsLoaded, setPdfjsLoaded] = useState(false);
   const [pdf, setPdf] = useState<any>(null);
   const [pageNum, setPageNum] = useState(1);
   const [numPages, setNumPages] = useState(0);
@@ -46,30 +51,9 @@ export default function PdfViewerPage() {
     fetchProject();
   }, [id]);
 
-  // 2. Load PDF.js script dynamically
+  // 2. Load PDF Document once project is ready
   useEffect(() => {
-    if ((window as any).pdfjsLib) {
-      setPdfjsLoaded(true);
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js';
-    script.async = true;
-    script.onload = () => {
-      (window as any).pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-      setPdfjsLoaded(true);
-    };
-    script.onerror = () => {
-      console.error('Error loading PDF.js from cdnjs');
-      setError('Erro ao carregar o motor de visualização de arquivos.');
-    };
-    document.body.appendChild(script);
-  }, []);
-
-  // 3. Load PDF Document once project and PDF.js are ready
-  useEffect(() => {
-    if (!project || !pdfjsLoaded) return;
+    if (!project) return;
 
     let active = true;
     const loadPdfDoc = async () => {
@@ -79,7 +63,6 @@ export default function PdfViewerPage() {
       }
 
       try {
-        const pdfjs = (window as any).pdfjsLib;
         let loadingTask;
 
         if (project.documentFile.startsWith('data:')) {
@@ -90,9 +73,9 @@ export default function PdfViewerPage() {
           for (let i = 0; i < raw.length; i++) {
             uint8Array[i] = raw.charCodeAt(i);
           }
-          loadingTask = pdfjs.getDocument({ data: uint8Array });
+          loadingTask = pdfjsLib.getDocument({ data: uint8Array });
         } else {
-          loadingTask = pdfjs.getDocument(project.documentFile);
+          loadingTask = pdfjsLib.getDocument(project.documentFile);
         }
 
         const pdfDoc = await loadingTask.promise;
@@ -113,7 +96,7 @@ export default function PdfViewerPage() {
     return () => {
       active = false;
     };
-  }, [project, pdfjsLoaded]);
+  }, [project]);
 
   // 4. Render PDF page on Canvas
   useEffect(() => {

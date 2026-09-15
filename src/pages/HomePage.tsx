@@ -1,8 +1,8 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import About from '../components/About';
+import Education from '../components/Education';
 import Differentials from '../components/Differentials';
-import Packages from '../components/Packages';
 import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
 import Testimonials from '../components/Testimonials';
@@ -16,8 +16,8 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <About />
+      <Education />
       <Differentials />
-      <Packages />
       <Services />
       <Portfolio />
       <Testimonials />

@@ -11,8 +11,8 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { name: 'Sobre Mim', href: '/#sobre-mim' },
+  { name: 'Formação e Cursos', href: '/#formacao' },
   { name: 'Diferenciais', href: '/#diferenciais' },
-  { name: 'Pacotes', href: '/#pacotes' },
   { name: 'Serviços', href: '/#servicos' },
   { name: 'Meus Trabalhos', href: '/#portfolio' },
   { name: 'Contato', href: '/#contato' },

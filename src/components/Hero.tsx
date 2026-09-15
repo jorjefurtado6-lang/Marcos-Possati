@@ -31,7 +31,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 border-b-2 border-brand-gold pb-4 inline-block drop-shadow-xl"
+          className="text-5xl md:text-7xl font-serif font-bold text-white mb-4 border-b-2 border-brand-gold pb-4 inline-block drop-shadow-xl"
         >
           Marcos Possati
         </motion.h1>
@@ -39,10 +39,19 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="mt-4 text-xl md:text-2xl text-white opacity-80 max-w-3xl mx-auto font-serif italic mb-8"
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          className="text-xl md:text-2xl text-brand-gold font-sans font-medium tracking-wide mb-3"
         >
-          Excelência em Revisão de Textos, Redação e Edição de Conteúdo
+          Redator, revisor e editor de textos
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-sans leading-relaxed mb-8"
+        >
+          Produção, revisão e edição de textos para empresas, editoras e agências.
         </motion.p>
 
         <motion.div
