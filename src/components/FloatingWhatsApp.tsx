@@ -9,7 +9,7 @@ export default function FloatingWhatsApp() {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: 'spring', stiffness: 200, damping: 20 }}
-      className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-[#20bd5a] hover:scale-110 transition-all duration-300 group"
+      className="fixed bottom-8 left-8 z-[100] w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-[#20bd5a] hover:scale-110 transition-all duration-300 group"
       aria-label="Contato via WhatsApp"
     >
       <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-30"></div>
