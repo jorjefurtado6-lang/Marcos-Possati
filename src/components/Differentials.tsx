@@ -9,13 +9,13 @@ const differentials = [
   },
   {
     icon: <ShieldCheck className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
-    title: "Excelência e rigor",
-    description: "técnico em cada etapa do trabalho."
+    title: "Excelência e rigor técnico",
+    description: "em cada etapa do trabalho."
   },
   {
     icon: <HeartHandshake className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,
-    title: "Compromisso absoluto com a qualidade",
-    description: "e clareza da comunicação."
+    title: "Compromisso com a qualidade",
+    description: "e a clareza da comunicação."
   },
   {
     icon: <Eye className="w-10 h-10 text-brand-gold" strokeWidth={1.5} />,

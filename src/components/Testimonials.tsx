@@ -30,12 +30,18 @@ export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'testimonials'), (snapshot) => {
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      if (data.length > 0) {
-        setItems(data);
+    const unsub = onSnapshot(
+      collection(db, 'testimonials'),
+      (snapshot) => {
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        if (data.length > 0) {
+          setItems(data);
+        }
+      },
+      (error) => {
+        console.warn("Testimonials onSnapshot notice:", error.message);
       }
-    });
+    );
     return () => unsub();
   }, []);
 

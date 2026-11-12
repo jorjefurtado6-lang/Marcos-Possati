@@ -5,12 +5,12 @@ const services = [
   {
     icon: <PenTool className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
     title: "Redação",
-    description: "Criação de artigos para blogs, portais de notícias, sites institucionais, conteúdos informativos, textos acadêmicos e materiais personalizados, de acordo com a necessidade do cliente."
+    description: "Elaboração de artigos acadêmicos e de textos para blogs, portais de notícias e sites institucionais, além de materiais personalizados, de acordo com a necessidade do cliente."
   },
   {
     icon: <CheckSquare className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
     title: "Revisão Textual",
-    description: "Correção gramatical, garantindo clareza, coerência, coesão e qualidade profissional ao texto."
+    description: "Correção gramatical, garantindo clareza, coerência, coesão e qualidade profissional."
   },
   {
     icon: <BookOpen className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
@@ -25,7 +25,7 @@ const services = [
   {
     icon: <Subtitles className="w-8 h-8 text-brand-navy" strokeWidth={1.5} />,
     title: "Legendagem",
-    description: "Criação e sincronização de legendas para vídeos, aulas, palestras, entrevistas, conteúdos institucionais e materiais para redes sociais."
+    description: "Criação e sincronização de legendas para vídeos, aulas, palestras, entrevistas e redes sociais."
   }
 ];
 

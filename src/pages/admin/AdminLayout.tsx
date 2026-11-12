@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
 import { auth } from "../../lib/firebase";
@@ -13,15 +15,20 @@ import {
   MessageSquare,
   LogOut,
   Menu,
-  X
+  X,
+  UserCheck,
+  KeyRound,
 } from "lucide-react";
 
 export default function AdminLayout() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -33,14 +40,51 @@ export default function AdminLayout() {
     return () => unsubscribe();
   }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
+    setIsSubmitting(true);
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      if (isRegisterMode) {
+        await createUserWithEmailAndPassword(auth, email, password);
+        setSuccess("Conta administrativa criada com sucesso!");
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
     } catch (err: any) {
       console.error(err);
-      setError("Credenciais inválidas. Verifique seu email e senha.");
+      const code = err?.code || "";
+      if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found") {
+        setError("E-mail ou senha incorretos. Se for seu primeiro acesso, use a opção 'Criar conta de admin'.");
+      } else if (code === "auth/email-already-in-use") {
+        setError("Este e-mail já possui cadastro. Alterne para 'Entrar' para fazer login.");
+      } else if (code === "auth/weak-password") {
+        setError("A senha deve ter no mínimo 6 caracteres.");
+      } else if (code === "auth/invalid-email") {
+        setError("Insira um endereço de e-mail válido.");
+      } else {
+        setError(err?.message || "Ocorreu um erro ao processar. Verifique os dados digitados.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!email) {
+      setError("Preencha o campo de e-mail para receber as instruções de recuperação de senha.");
+      return;
+    }
+    setError("");
+    setSuccess("");
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setSuccess("E-mail de redefinição enviado! Verifique sua caixa de entrada.");
+    } catch (err: any) {
+      console.error(err);
+      setError("Não foi possível enviar o e-mail de redefinição. Verifique o endereço digitado.");
     }
   };
 
@@ -58,47 +102,126 @@ export default function AdminLayout() {
   if (!user) {
     return (
       <div className="min-h-screen bg-[#051325] flex items-center justify-center font-sans px-4">
-        <div className="bg-[#071B33] p-8 pb-12 w-full max-w-md border border-brand-gold/30 shadow-2xl">
-          <h2 className="text-2xl font-serif text-brand-gold mb-6 text-center border-b border-brand-gold/20 pb-4">
+        <div className="bg-[#071B33] p-8 pb-10 w-full max-w-md border border-brand-gold/30 shadow-2xl">
+          <h2 className="text-2xl font-serif text-brand-gold mb-2 text-center">
             Acesso Restrito
           </h2>
+          <p className="text-white/50 text-xs text-center mb-6 border-b border-brand-gold/20 pb-4">
+            Painel Administrativo Marcos Possati
+          </p>
+
+          {/* Mode Switcher */}
+          <div className="grid grid-cols-2 gap-2 mb-6 p-1 bg-[#051325] border border-brand-gold/20 rounded">
+            <button
+              type="button"
+              onClick={() => {
+                setIsRegisterMode(false);
+                setError("");
+                setSuccess("");
+              }}
+              className={`py-2 text-[11px] uppercase tracking-wider font-semibold transition-all rounded ${
+                !isRegisterMode
+                  ? "bg-brand-gold text-brand-navy shadow"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              Entrar
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsRegisterMode(true);
+                setError("");
+                setSuccess("");
+              }}
+              className={`py-2 text-[11px] uppercase tracking-wider font-semibold transition-all rounded ${
+                isRegisterMode
+                  ? "bg-brand-gold text-brand-navy shadow"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              Criar Conta Admin
+            </button>
+          </div>
+
           {error && (
-            <p className="text-red-400 text-sm mb-4 text-center">{error}</p>
+            <p className="text-red-400 text-xs mb-4 text-center bg-red-950/30 p-2 border border-red-500/20 rounded">
+              {error}
+            </p>
           )}
-          <form onSubmit={handleLogin} className="space-y-4">
+
+          {success && (
+            <p className="text-emerald-400 text-xs mb-4 text-center bg-emerald-950/30 p-2 border border-emerald-500/20 rounded">
+              {success}
+            </p>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-white/50 text-[10px] uppercase tracking-widest mb-2">
-                Email
+                E-mail
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#051325] border border-brand-gold/20 p-3 text-white text-sm outline-none focus:border-brand-gold transition-colors rounded-sm shadow-inner"
+                className="w-full bg-[#051325] border border-brand-gold/20 p-3 text-white text-sm outline-none focus:border-brand-gold transition-colors rounded shadow-inner"
                 required
-                placeholder="admin@exemplo.com"
+                placeholder="seuemail@exemplo.com"
               />
             </div>
             <div>
-              <label className="block text-white/50 text-[10px] uppercase tracking-widest mb-2">
-                Senha
-              </label>
+              <div className="flex justify-between items-center mb-2">
+                <label className="block text-white/50 text-[10px] uppercase tracking-widest">
+                  Senha {isRegisterMode && "(mínimo 6 dígitos)"}
+                </label>
+                {!isRegisterMode && (
+                  <button
+                    type="button"
+                    onClick={handleResetPassword}
+                    className="text-[10px] text-brand-gold/80 hover:text-brand-gold underline"
+                  >
+                    Esqueci a senha
+                  </button>
+                )}
+              </div>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#051325] border border-brand-gold/20 p-3 text-white text-sm outline-none focus:border-brand-gold transition-colors rounded-sm shadow-inner"
+                className="w-full bg-[#051325] border border-brand-gold/20 p-3 text-white text-sm outline-none focus:border-brand-gold transition-colors rounded shadow-inner"
                 required
                 placeholder="••••••••"
+                minLength={6}
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-brand-gold text-brand-navy font-bold text-[10px] uppercase tracking-widest py-3 mt-6 hover:brightness-110 transition-all flex items-center justify-center gap-2 rounded-sm"
+              disabled={isSubmitting}
+              className="w-full bg-brand-gold text-brand-navy font-bold text-[10px] uppercase tracking-widest py-3 mt-6 hover:brightness-110 transition-all flex items-center justify-center gap-2 rounded disabled:opacity-50"
             >
-              Entrar no Painel
+              {isSubmitting ? (
+                "Processando..."
+              ) : isRegisterMode ? (
+                <>
+                  <UserCheck size={16} /> Cadastrar Administrador
+                </>
+              ) : (
+                <>
+                  <KeyRound size={16} /> Entrar no Painel
+                </>
+              )}
             </button>
           </form>
+
+          <div className="mt-6 text-center border-t border-brand-gold/10 pt-4">
+            <Link
+              to="/"
+              className="text-xs text-white/40 hover:text-brand-gold transition-colors"
+            >
+              ← Voltar ao site principal
+            </Link>
+          </div>
         </div>
       </div>
     );

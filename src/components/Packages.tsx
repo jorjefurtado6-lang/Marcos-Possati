@@ -24,13 +24,19 @@ export default function Packages() {
   const [writingPackages, setWritingPackages] = useState<any[]>(defaultWritingPackages);
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'packages'), (snapshot) => {
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as any));
-      if (data.length > 0) {
-        setRevisionPackages(data.filter(p => p.type === 'revision'));
-        setWritingPackages(data.filter(p => p.type === 'writing'));
+    const unsub = onSnapshot(
+      collection(db, 'packages'),
+      (snapshot) => {
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as any));
+        if (data.length > 0) {
+          setRevisionPackages(data.filter(p => p.type === 'revision'));
+          setWritingPackages(data.filter(p => p.type === 'writing'));
+        }
+      },
+      (error) => {
+        console.warn("Packages onSnapshot notice:", error.message);
       }
-    });
+    );
     return () => unsub();
   }, []);
   return (

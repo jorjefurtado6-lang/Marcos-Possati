@@ -57,11 +57,18 @@ export default function AdminPortfolio() {
   };
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "portfolio"), (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setItems(data);
-      setLoading(false);
-    });
+    const unsub = onSnapshot(
+      collection(db, "portfolio"),
+      (snapshot) => {
+        const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setItems(data);
+        setLoading(false);
+      },
+      (error) => {
+        console.warn("AdminPortfolio onSnapshot notice:", error.message);
+        setLoading(false);
+      }
+    );
     return () => unsub();
   }, []);
 

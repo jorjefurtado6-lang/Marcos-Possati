@@ -55,12 +55,18 @@ export default function Portfolio() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'portfolio'), (snapshot) => {
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      if (data.length > 0) {
-        setItems(data);
+    const unsub = onSnapshot(
+      collection(db, 'portfolio'),
+      (snapshot) => {
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        if (data.length > 0) {
+          setItems(data);
+        }
+      },
+      (error) => {
+        console.warn("Portfolio onSnapshot notice:", error.message);
       }
-    });
+    );
     return () => unsub();
   }, []);
 

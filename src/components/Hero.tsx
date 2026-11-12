@@ -51,7 +51,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-sans leading-relaxed mb-8"
         >
-          Produção, revisão e edição de textos para empresas, editoras e agências.
+          Produção, revisão e edição de materiais para empresas, editoras e agências.
         </motion.p>
 
         <motion.div
@@ -67,12 +67,6 @@ export default function Hero() {
             className="px-8 py-4 bg-brand-gold text-brand-navy font-sans font-bold text-[10px] uppercase tracking-widest hover:brightness-110 transition-all duration-300"
           >
             Solicitar Orçamento
-          </a>
-          <a
-            href="#portfolio"
-            className="px-8 py-4 border border-brand-gold text-brand-gold font-sans font-bold text-[10px] uppercase tracking-widest hover:bg-brand-gold hover:text-brand-navy transition-all duration-300 backdrop-blur-sm"
-          >
-            Ver Meus Trabalhos
           </a>
         </motion.div>
 

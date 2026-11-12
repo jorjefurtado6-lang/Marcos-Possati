@@ -18,7 +18,7 @@ const courses = [
     icon: <Sparkles className="w-6 h-6 text-brand-gold" strokeWidth={1.75} />,
   },
   {
-    title: 'Formação de editores de didáticos e sistemas de ensino',
+    title: 'Formação de Editores de Didáticos e Sistemas de Ensino',
     category: 'Mercado Editorial',
     icon: <BookOpen className="w-6 h-6 text-brand-gold" strokeWidth={1.75} />,
   },
@@ -41,7 +41,7 @@ export default function Education() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-white border-b-2 border-brand-gold pb-4 inline-block">
-              Formação e <span className="text-brand-gold italic">cursos</span>
+              Formação e <span className="text-brand-gold italic">Cursos</span>
             </h2>
           </motion.div>
         </div>

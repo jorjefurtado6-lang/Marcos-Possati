@@ -21,19 +21,19 @@ export default function About() {
             
             <div className="space-y-6 text-lg text-white/85 font-sans leading-relaxed w-full">
               <p className="whitespace-pre-wrap">
-                {"  "}Sou redator, revisor e editor de textos, formado em Letras (Português/Inglês), com pós-graduação em Revisão de Textos.
+                {"  "}Sou redator, revisor e editor de conteúdo, formado em Letras (Português/Inglês) e pós-graduado em Revisão de Textos.
               </p>
               
               <p className="whitespace-pre-wrap">
-                {"  "}Tenho mais de 7 anos de experiência em análise, produção, revisão e aprimoramento textual, com foco em clareza, fluidez, correção gramatical e adequação do conteúdo ao público e ao objetivo de cada projeto.
+                {"  "}Tenho mais de 7 anos de experiência em análise, produção, revisão e aprimoramento linguístico, com foco em clareza, fluidez, correção gramatical e adequação do texto ao público e objetivo de cada projeto.
               </p>
               
               <p className="whitespace-pre-wrap">
-                {"  "}Meu trabalho vai além da correção de erros: identifico problemas que comprometem a compreensão, a organização e a qualidade do texto, como redundâncias, construções confusas, falhas de coesão e inadequações de linguagem.
+                {"  "}Meu trabalho vai além da correção: identifico problemas que comprometem a compreensão, a organização e a qualidade da escrita, como redundâncias, construções confusas, falhas de coesão e inadequações de linguagem.
               </p>
 
               <p className="whitespace-pre-wrap">
-                {"  "}Também possuo formação complementar em Inteligência Artificial aplicada à escrita, Material Didático, Marketing Digital e SEO, ampliando minha atuação em diferentes tipos de conteúdo e projetos digitais.
+                {"  "}Também possuo formação complementar em Inteligência Artificial aplicada à escrita, Material Didático, Marketing Digital e SEO, ampliando minha atuação em diferentes tipos de projetos digitais.
               </p>
             </div>
           </motion.div>
